@@ -1,0 +1,39 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 14
+VisualStudioVersion = 14.0.25420.1
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{2A103E31-C6CB-4733-8F3E-66BEC2B68723}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{616B814B-B9EB-408E-B117-5224F0CFB4AA}"
+	ProjectSection(SolutionItems) = preProject
+		global.json = global.json
+	EndProjectSection
+EndProject
+Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "Messenger", "src\Messenger\Messenger.xproj", "{246935AA-1FE8-40C7-81F8-E982580C2BFD}"
+EndProject
+Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "AuthServer", "src\AuthServer\AuthServer.xproj", "{C47A8B70-6F04-4885-AE0C-4E428AB617F4}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{246935AA-1FE8-40C7-81F8-E982580C2BFD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{246935AA-1FE8-40C7-81F8-E982580C2BFD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{246935AA-1FE8-40C7-81F8-E982580C2BFD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{246935AA-1FE8-40C7-81F8-E982580C2BFD}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C47A8B70-6F04-4885-AE0C-4E428AB617F4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C47A8B70-6F04-4885-AE0C-4E428AB617F4}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C47A8B70-6F04-4885-AE0C-4E428AB617F4}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C47A8B70-6F04-4885-AE0C-4E428AB617F4}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{246935AA-1FE8-40C7-81F8-E982580C2BFD} = {2A103E31-C6CB-4733-8F3E-66BEC2B68723}
+		{C47A8B70-6F04-4885-AE0C-4E428AB617F4} = {2A103E31-C6CB-4733-8F3E-66BEC2B68723}
+	EndGlobalSection
+EndGlobal
