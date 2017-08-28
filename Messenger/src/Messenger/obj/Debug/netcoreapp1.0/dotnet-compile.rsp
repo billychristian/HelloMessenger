@@ -1,5 +1,5 @@
---temp-output:D:\Project\CDC_React\Messenger\Messenger\src\Messenger\obj\Debug\netcoreapp1.0\
---out:D:\Project\CDC_React\Messenger\Messenger\src\Messenger\bin\Debug\netcoreapp1.0\Messenger.dll
+--temp-output:D:\Project\netCoreReact\https---billychristian.visualstudio.com-_git-NetCoreCDC\Messenger\src\Messenger\obj\Debug\netcoreapp1.0\
+--out:D:\Project\netCoreReact\https---billychristian.visualstudio.com-_git-NetCoreCDC\Messenger\src\Messenger\bin\Debug\netcoreapp1.0\Messenger.dll
 --define:DEBUG
 --define:TRACE
 --define:NETCOREAPP1_0
@@ -221,18 +221,19 @@
 --reference:C:\Users\billy_c\.nuget\packages\System.Threading.Timer\4.3.0\ref\netstandard1.2\System.Threading.Timer.dll
 --reference:C:\Users\billy_c\.nuget\packages\System.Xml.ReaderWriter\4.3.0\ref\netstandard1.3\System.Xml.ReaderWriter.dll
 --reference:C:\Users\billy_c\.nuget\packages\System.Xml.XDocument\4.3.0\ref\netstandard1.3\System.Xml.XDocument.dll
---resource:"D:\Project\CDC_React\Messenger\Messenger\src\Messenger\obj\Debug\netcoreapp1.0\Messengerdotnet-compile.deps.json",Messenger.deps.json
-D:\Project\CDC_React\Messenger\Messenger\src\Messenger\ErrorDto.cs
-D:\Project\CDC_React\Messenger\Messenger\src\Messenger\Program.cs
-D:\Project\CDC_React\Messenger\Messenger\src\Messenger\Startup.cs
-D:\Project\CDC_React\Messenger\Messenger\src\Messenger\Controllers\AccountController.cs
-D:\Project\CDC_React\Messenger\Messenger\src\Messenger\Controllers\ValuesController.cs
-D:\Project\CDC_React\Messenger\Messenger\src\Messenger\Helper\Encryption.cs
-D:\Project\CDC_React\Messenger\Messenger\src\Messenger\Migrations\20170822025010_initialdb.cs
-D:\Project\CDC_React\Messenger\Messenger\src\Messenger\Migrations\20170822025010_initialdb.Designer.cs
-D:\Project\CDC_React\Messenger\Messenger\src\Messenger\Migrations\20170823033133_add createdat.cs
-D:\Project\CDC_React\Messenger\Messenger\src\Messenger\Migrations\20170823033133_add createdat.Designer.cs
-D:\Project\CDC_React\Messenger\Messenger\src\Messenger\Migrations\UserContextModelSnapshot.cs
-D:\Project\CDC_React\Messenger\Messenger\src\Messenger\Models\EntityBase.cs
-D:\Project\CDC_React\Messenger\Messenger\src\Messenger\Models\User.cs
-D:\Project\CDC_React\Messenger\Messenger\src\Messenger\Models\Context\UserContext.cs
+--resource:"D:\Project\netCoreReact\https---billychristian.visualstudio.com-_git-NetCoreCDC\Messenger\src\Messenger\obj\Debug\netcoreapp1.0\Messengerdotnet-compile.deps.json",Messenger.deps.json
+D:\Project\netCoreReact\https---billychristian.visualstudio.com-_git-NetCoreCDC\Messenger\src\Messenger\ErrorDto.cs
+D:\Project\netCoreReact\https---billychristian.visualstudio.com-_git-NetCoreCDC\Messenger\src\Messenger\Program.cs
+D:\Project\netCoreReact\https---billychristian.visualstudio.com-_git-NetCoreCDC\Messenger\src\Messenger\Startup.cs
+D:\Project\netCoreReact\https---billychristian.visualstudio.com-_git-NetCoreCDC\Messenger\src\Messenger\Constant\AppSettings.cs
+D:\Project\netCoreReact\https---billychristian.visualstudio.com-_git-NetCoreCDC\Messenger\src\Messenger\Controllers\AccountController.cs
+D:\Project\netCoreReact\https---billychristian.visualstudio.com-_git-NetCoreCDC\Messenger\src\Messenger\Controllers\ValuesController.cs
+D:\Project\netCoreReact\https---billychristian.visualstudio.com-_git-NetCoreCDC\Messenger\src\Messenger\Helper\Encryption.cs
+D:\Project\netCoreReact\https---billychristian.visualstudio.com-_git-NetCoreCDC\Messenger\src\Messenger\Migrations\20170822025010_initialdb.cs
+D:\Project\netCoreReact\https---billychristian.visualstudio.com-_git-NetCoreCDC\Messenger\src\Messenger\Migrations\20170822025010_initialdb.Designer.cs
+D:\Project\netCoreReact\https---billychristian.visualstudio.com-_git-NetCoreCDC\Messenger\src\Messenger\Migrations\20170823033133_add createdat.cs
+D:\Project\netCoreReact\https---billychristian.visualstudio.com-_git-NetCoreCDC\Messenger\src\Messenger\Migrations\20170823033133_add createdat.Designer.cs
+D:\Project\netCoreReact\https---billychristian.visualstudio.com-_git-NetCoreCDC\Messenger\src\Messenger\Migrations\UserContextModelSnapshot.cs
+D:\Project\netCoreReact\https---billychristian.visualstudio.com-_git-NetCoreCDC\Messenger\src\Messenger\Models\EntityBase.cs
+D:\Project\netCoreReact\https---billychristian.visualstudio.com-_git-NetCoreCDC\Messenger\src\Messenger\Models\User.cs
+D:\Project\netCoreReact\https---billychristian.visualstudio.com-_git-NetCoreCDC\Messenger\src\Messenger\Models\Context\UserContext.cs

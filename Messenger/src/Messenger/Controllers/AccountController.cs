@@ -1,9 +1,11 @@
 ﻿using MailKit.Net.Smtp;
+using Messenger.Constant;
 using Messenger.Helper;
 using Messenger.Models;
 using Messenger.Models.Context;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Configuration;
 using MimeKit;
 using System;
 using System.Collections.Generic;
@@ -18,7 +20,6 @@ namespace Messenger.Controllers
     {
         private readonly UserContext _context;
         private readonly IPasswordHasher<User> _passwordHasher;
-        private static readonly string _key = "E546C8DF278CD5931069B522E695D4F2";
 
         public AccountController(UserContext context, IPasswordHasher<User> passwordHasher)
         {
@@ -28,34 +29,41 @@ namespace Messenger.Controllers
 
         // GET: api/values
         [HttpGet]
-        public IEnumerable<string> Get()
+        public IEnumerable<User> Get()
         {
-            var user = new User
-            {
-                FirstName = "billy",
-                LastName = "Christian",
-                Email = "billy.christian36@gmail.com",
-                UserName = "test"
-            };
-            SendEmailActivation(user);
-            return new string[] { "value1", "value2" };
+            var users = _context.User;
+            return users;
         }
 
         // GET api/values/5
+        [Route("GetUser")]
         [HttpGet("{id}", Name = "GetUser")]
-        public string Get(int id)
+        public User Get(Guid id)
         {
-            return "value";
+            if (String.IsNullOrEmpty(id.ToString())) throw new Exception("User not found!");
+
+            var user = _context.User.Where(x => x.Id == id).FirstOrDefault();
+            if(user == null)
+            {
+                throw new Exception("User not found!");
+            }
+
+            return user;
         }
 
-        [HttpGet("{code}", Name = "GetUserByUserCode")]
-        public IActionResult Get(string code)
+        [Route("ActivateUserByUserCode")]
+        [HttpGet("{activationCode}", Name = "ActivateUserByUserCode")]
+        public IActionResult Get(string activationCode)
         {
-            var user = _context.User.Where(x => x.UserName == Encryption.DecryptString(code, _key)).FirstOrDefault();
-            if (user == null)
-            {
-                return BadRequest();
-            }
+            if (String.IsNullOrEmpty(activationCode)) return BadRequest();
+
+            var user = _context.User.Where(x => x.UserName == Encryption.DecryptString(activationCode, AppSettings.Key)).FirstOrDefault();
+
+            if (user == null) throw new Exception("Invalid activation link");
+
+            user.Active = true;
+            _context.User.Update(user);
+            _context.SaveChanges();
 
             return CreatedAtRoute("GetUser", new { id = user.Id }, user);
         }
@@ -78,10 +86,9 @@ namespace Messenger.Controllers
             user.Password = _passwordHasher.HashPassword(user, user.Password);
             user.CreatedAt = DateTime.Now;
 
-            //_context.User.Add(user);
-            //_context.SaveChanges();
-
-
+            _context.User.Add(user);
+            _context.SaveChanges();
+            
             SendEmailActivation(user);
 
             return CreatedAtRoute("GetUser", new { id = user.Id }, user);
@@ -91,22 +98,6 @@ namespace Messenger.Controllers
         [HttpPut("{id}")]
         public void Put(int id, [FromBody]string value)
         {
-        }
-
-        [HttpPut("{activation}", Name = "ActivateUser")]
-        public IActionResult Put(string activation)
-        {
-            var user = _context.User.Where(x => x.UserName == Encryption.DecryptString(activation, _key)).FirstOrDefault();
-            if(user == null)
-            {
-                return BadRequest();
-            }
-
-            user.Active = true;
-            _context.User.Update(user);
-            _context.SaveChanges();
-
-            return CreatedAtRoute("GetUser", new { id = user.Id }, user);
         }
 
         // DELETE api/values/5
@@ -122,20 +113,20 @@ namespace Messenger.Controllers
             try
             {
                 var message = new MimeMessage();
-                message.From.Add(new MailboxAddress("Admin", "admin@hellomessenger.com"));
+                message.From.Add(new MailboxAddress("Admin", "billy.christian@mitrais.com"));
                 message.To.Add(new MailboxAddress(user.FirstName + " " + user.LastName, user.Email));
                 message.Subject = "Hello Messenger - Activation Code";
                 var bodyBuilder = new BodyBuilder();
-                bodyBuilder.HtmlBody = @"Thank you for joining us. Please follow this <a href=''>link</a> to activate your account. ";
-                bodyBuilder.HtmlBody += @"<br>code : " + Encryption.EncryptString(user.UserName, _key); // TODO: delete this later
+                bodyBuilder.HtmlBody = @"Hi "+ user.FirstName + " " + user.LastName + ",<br><br>";
+                bodyBuilder.HtmlBody += @"Thank you for joining us. Please follow this <a href=''>link</a> to activate your account. "; //TODO:add url
+                bodyBuilder.HtmlBody += @"<br><br>code : " + Encryption.EncryptString(user.UserName, AppSettings.Key); // TODO: delete this later
                 message.Body = bodyBuilder.ToMessageBody();
 
                 using (var client = new SmtpClient())
                 {
 
-                    client.Connect("smtp.gmail.com", 587, false);
-                    client.Authenticate("billy.dev36@gmail.com", "Testdev1234");
-                    // Note: since we don't have an OAuth2 token, disable 	// the XOAUTH2 authentication mechanism.     client.Authenticate("anuraj.p@example.com", "password");
+                    client.Connect("exchange.mitrais.com", 465, false);
+                    client.Authenticate(AppSettings.Email, Encryption.DecryptString(AppSettings.EmailPassword, AppSettings.Key));
                     client.Send(message);
                     client.Disconnect(true);
                 }
