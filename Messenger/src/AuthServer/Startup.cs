@@ -17,6 +17,7 @@ using AuthServer.Configuration;
 using AuthServer.Interface;
 using Microsoft.AspNetCore.Identity;
 using AuthServer.Models;
+using IdentityServer4.Services.Default;
 
 namespace AuthServer
 {
@@ -46,11 +47,18 @@ namespace AuthServer
                     options.UseSqlServer(connectionString)
             );
 
+            //services.AddCors(o => o.AddPolicy("MyPolicy", builder =>
+            //{
+            //    builder.AllowAnyOrigin()
+            //           .AllowAnyMethod()
+            //           .AllowAnyHeader();
+            //}));
+
             services.AddTransient<IResourceOwnerPasswordValidator, ResourceOwnerPasswordValidator>()
                     .AddTransient<IProfileService, ProfileService>()
                     .AddTransient<IAuthRepository, AuthRepository>()
                     .AddTransient<IPasswordHasher<User>, PasswordHasher<User>>();
-
+            
             services.AddIdentityServer()
                 .AddTemporarySigningCredential()
                 .AddInMemoryClients(Config.GetClients())
@@ -66,6 +74,8 @@ namespace AuthServer
             {
                 app.UseDeveloperExceptionPage();
             }
+
+            //app.UseCors("MyPolicy");
 
             app.UseIdentityServer();
 

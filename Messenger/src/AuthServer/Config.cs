@@ -50,7 +50,10 @@ namespace AuthServer
                         new Secret("secret".Sha256())
                     },
                     AllowedGrantTypes = GrantTypes.ResourceOwnerPassword,
-
+                    AllowedCorsOrigins = new List<string>
+                    {
+                        "http://localhost:3000"
+                    },
                     AllowedScopes =
                     {
                         "offline_access",

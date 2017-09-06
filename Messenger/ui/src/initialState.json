@@ -1,0 +1,15 @@
+{
+    "user":{
+        "id":"",
+        "username": "username",
+        "email": "address@email.com",
+        "firstName":"first",
+        "lastName":"last",
+        "authentication":{
+            "access_token" :"default",
+            "expires_in":3600,
+            "token_type":"Bearer",
+            "refresh_token":"default"
+        }
+    }
+}

@@ -3,6 +3,7 @@ using Messenger.Constant;
 using Messenger.Helper;
 using Messenger.Models;
 using Messenger.Models.Context;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
@@ -64,6 +65,20 @@ namespace Messenger.Controllers
             user.Active = true;
             _context.User.Update(user);
             _context.SaveChanges();
+
+            return CreatedAtRoute("GetUser", new { id = user.Id }, user);
+        }
+
+        [Authorize]
+        [Route("GetByUsername")]
+        [HttpGet("{username}", Name = "GetByUsername")]
+        public IActionResult GetByUserName(string username)
+        {
+            if (String.IsNullOrEmpty(username)) return BadRequest();
+
+            var user = _context.User.Where(x => x.UserName == username).FirstOrDefault();
+
+            if (user == null) throw new Exception("User not found");
 
             return CreatedAtRoute("GetUser", new { id = user.Id }, user);
         }
