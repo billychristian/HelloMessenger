@@ -5,7 +5,7 @@ import { connect } from 'react-redux'
 const mapStateToProps = (state, props) =>
 	({
 		user: state.user,
-		router: props.router
+        router : props.router
 	})
 
 const mapDispatchToProps = dispatch =>

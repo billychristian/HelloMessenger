@@ -1,13 +1,22 @@
-import {createClass} from 'react'
+import {PropTypes} from 'react'
 
-export const Dashboard = createClass({
-    render(){
-        return(
-            <div>
-                <h1>Dashboard</h1>
-            </div>
-        )
-    }
-})
+
+const Dashboard = ({user, router}) => {
+     if(user == null || !user.isLoggedIn) {
+         router.push('/login')
+     }
+
+     return(
+        <div>
+            <h1>Dashboard</h1>
+        </div>
+     )
+}
+
+Dashboard.propTypes = {
+    user: PropTypes.object,
+    router: PropTypes.object
+}
+
 
 export default Dashboard;

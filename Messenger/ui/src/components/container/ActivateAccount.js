@@ -1,10 +1,10 @@
-import Dashboard from '../ui/Dashboard'
+import ActivateAccount from '../ui/ActivateAccount'
 import {withRouter} from 'react-router'
 import { connect } from 'react-redux'
+import { signin } from '../../actions'
 
-const mapStateToProps = (state, props) =>
+const mapStateToProps = (state,props) =>
 	({
-		user: state.user,
 		router: props.router
 	})
 
@@ -15,8 +15,8 @@ const mapDispatchToProps = dispatch =>
     //         signin(username, password)
     //     )
     // },
-})    
+})
 
-const Container = connect(mapStateToProps,mapDispatchToProps)(Dashboard)
+const Container = connect(mapStateToProps, mapDispatchToProps)(Login)
 
 export default withRouter(Container);

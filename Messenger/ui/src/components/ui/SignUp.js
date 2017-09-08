@@ -17,8 +17,7 @@ const SignUp = ({onSubmit=u=>u, router}) => {
             confirmPassword : _confirmPassword.value
         })
 
-        //TODO:change the router
-        router.push('/');
+        router.push('/account-activation');
 
         _firstName.value = ''
         _lastName.value = ''
