@@ -1,16 +1,20 @@
 import SignUp from '../ui/SignUp'
 import {withRouter} from 'react-router'
 import { connect } from 'react-redux'
-//import { signin } from '../../actions'
+import { register } from '../../actions'
 
-const mapStateToProps = (props) =>
-	({
-		router: props.router
-	})
+const mapStateToProps = (state, props) =>
+({
+    router: props.router
+})
 
 const mapDispatchToProps = dispatch =>
 ({
-    
+    onSubmit({username, firstName, lastName, email, password, confirmPassword}){
+        dispatch(
+            register(username, firstName, lastName, email, password, confirmPassword)
+        )
+    },
 })
 
 const Container = connect(mapStateToProps, mapDispatchToProps)(SignUp)

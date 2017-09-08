@@ -2,7 +2,7 @@ import Dashboard from '../ui/Dashboard'
 import {withRouter} from 'react-router'
 import { connect } from 'react-redux'
 
-const mapStateToProps = ( props) =>
+const mapStateToProps = (state, props) =>
 	({
 		router: props.router
 	})

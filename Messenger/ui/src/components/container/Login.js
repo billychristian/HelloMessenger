@@ -3,7 +3,7 @@ import {withRouter} from 'react-router'
 import { connect } from 'react-redux'
 import { signin } from '../../actions'
 
-const mapStateToProps = (props) =>
+const mapStateToProps = (state,props) =>
 	({
 		router: props.router
 	})

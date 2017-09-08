@@ -5,7 +5,8 @@ export function login(id,
                     username,
                     email,
                     firstName,
-                    lastName, 
+                    lastName,
+                    isLoggedin, 
                     authentication){
     return {
         type: C.SIGN_IN,
@@ -14,8 +15,26 @@ export function login(id,
             username,
             email,
             firstName,
-            lastName, 
+            lastName,
+            isLoggedin, 
             authentication
+        }
+    }
+}
+
+export function signup(id,
+                        username,
+                        email,
+                        firstName,
+                        lastName){
+    return{
+        type: C.SIGN_UP,
+        payload : {
+            id,
+            username,
+            email,
+            firstName,
+            lastName
         }
     }
 }
@@ -48,9 +67,37 @@ export function getUserInformation(username, authentication){
                     res.body.email, 
                     res.body.firstName, 
                     res.body.lastName, 
+                    true,
                     authentication
                 ))
             }
         })
+    }
+}
+
+export function register(username, firstName, lastName, email, password, confirmPassword){
+    return (dispatch) => {
+        //TODO:Change this validation
+        if(password == confirmPassword){
+            request.post(C.CLIENT_URL + "account")
+            .send({
+                FirstName:firstName,
+                LastName:lastName,
+                Password:password,
+                UserName:username,
+                Email:email
+            })
+            .set('Content-Type', 'application/json')
+            .end((err, res) => {
+                if (res.ok) {
+                    dispatch(login(res.body.id, 
+                        username, 
+                        res.body.email, 
+                        res.body.firstName, 
+                        res.body.lastName
+                    ))
+                }
+            })
+        }
     }
 }

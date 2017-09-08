@@ -14,7 +14,9 @@ const Login = ({onLogin=u=>u, router}) => {
         })
 
         //console.log(router)
-        router.push('/');
+        router.go({
+            path: '/'
+        })
 
         _username.value = ''
         _password.value = ''
