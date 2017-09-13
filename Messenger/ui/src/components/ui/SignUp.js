@@ -18,7 +18,7 @@ const SignUp = ({onSubmit=u=>u, router}) => {
         })
 
         //TODO:change the router
-        router.push('/');
+        router.push('/waiting-activation');
 
         _firstName.value = ''
         _lastName.value = ''

@@ -39,6 +39,23 @@ export function signup(id,
     }
 }
 
+export function accountActivation(id,
+                        username,
+                        email,
+                        firstName,
+                        lastName){
+    return{
+        type: C.ACTIVATE_ACCOUNT,
+        payload : {
+            id,
+            username,
+            email,
+            firstName,
+            lastName
+        }
+    }
+}
+
 export function signin(username, password){
     return (dispatch) => {
         request.post(C.LOGIN_URL)
@@ -90,7 +107,7 @@ export function register(username, firstName, lastName, email, password, confirm
             .set('Content-Type', 'application/json')
             .end((err, res) => {
                 if (res.ok) {
-                    dispatch(login(res.body.id, 
+                    dispatch(signup(res.body.id, 
                         username, 
                         res.body.email, 
                         res.body.firstName, 
@@ -99,5 +116,23 @@ export function register(username, firstName, lastName, email, password, confirm
                 }
             })
         }
+    }
+}
+
+export function activateAccount(usercode){
+    console.log(encodeURIComponent(usercode))
+    return(dispatch)=>{
+        request.post(C.CLIENT_URL+"account/ActivateUserByUserCode/?activationCode="+ encodeURIComponent(usercode))
+        .set('Content-Type', 'application/x-www-form-urlencoded')
+        .end((err, res) => {
+            if (res.ok) {
+                dispatch(accountActivation(res.body.id, 
+                    res.body.username, 
+                    res.body.email, 
+                    res.body.firstName, 
+                    res.body.lastName
+                ))
+            }
+        })
     }
 }

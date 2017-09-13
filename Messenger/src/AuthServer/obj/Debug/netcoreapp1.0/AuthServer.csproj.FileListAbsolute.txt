@@ -1,0 +1,9 @@
+F:\Project\NetCore-React\HelloMessenger\Messenger\src\AuthServer\bin\Debug\netcoreapp1.0\AuthServer.deps.json
+F:\Project\NetCore-React\HelloMessenger\Messenger\src\AuthServer\bin\Debug\netcoreapp1.0\AuthServer.runtimeconfig.json
+F:\Project\NetCore-React\HelloMessenger\Messenger\src\AuthServer\bin\Debug\netcoreapp1.0\AuthServer.runtimeconfig.dev.json
+F:\Project\NetCore-React\HelloMessenger\Messenger\src\AuthServer\bin\Debug\netcoreapp1.0\AuthServer.dll
+F:\Project\NetCore-React\HelloMessenger\Messenger\src\AuthServer\bin\Debug\netcoreapp1.0\AuthServer.pdb
+F:\Project\NetCore-React\HelloMessenger\Messenger\src\AuthServer\obj\Debug\netcoreapp1.0\AuthServer.csprojResolveAssemblyReference.cache
+F:\Project\NetCore-React\HelloMessenger\Messenger\src\AuthServer\obj\Debug\netcoreapp1.0\AuthServer.AssemblyInfo.cs
+F:\Project\NetCore-React\HelloMessenger\Messenger\src\AuthServer\obj\Debug\netcoreapp1.0\AuthServer.dll
+F:\Project\NetCore-React\HelloMessenger\Messenger\src\AuthServer\obj\Debug\netcoreapp1.0\AuthServer.pdb
