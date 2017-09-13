@@ -9,6 +9,7 @@
   "author": "Billy Christian",
   "license": "ISC",
   "devDependencies": {
+    "autoprefixer-loader": "^3.2.0",
     "babel-cli": "^6.26.0",
     "babel-core": "^6.26.0",
     "babel-loader": "^6.2.5",

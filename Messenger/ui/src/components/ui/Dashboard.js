@@ -1,13 +1,21 @@
-import {createClass} from 'react'
+import '../../stylesheets/style.scss'
+import '../../stylesheets/bootstrap.css'
+import { PropTypes } from 'react'
 
-export const Dashboard = createClass({
-    render(){
-        return(
-            <div>
-                <h1>Dashboard</h1>
-            </div>
-        )
-    }
-})
+const Dashboard = ({user, router}) => {
+
+    return(
+        <div>
+            <h1>Dashboard</h1>
+        </div>
+        
+    )
+}
+
+
+Dashboard.propTypes = {
+    user: PropTypes.object,
+    router: PropTypes.object
+}
 
 export default Dashboard;

@@ -1,0 +1,9 @@
+F:\Project\NetCore-React\HelloMessenger\Messenger\src\Messenger\bin\Debug\netcoreapp1.0\Messenger.deps.json
+F:\Project\NetCore-React\HelloMessenger\Messenger\src\Messenger\bin\Debug\netcoreapp1.0\Messenger.runtimeconfig.json
+F:\Project\NetCore-React\HelloMessenger\Messenger\src\Messenger\bin\Debug\netcoreapp1.0\Messenger.runtimeconfig.dev.json
+F:\Project\NetCore-React\HelloMessenger\Messenger\src\Messenger\bin\Debug\netcoreapp1.0\Messenger.dll
+F:\Project\NetCore-React\HelloMessenger\Messenger\src\Messenger\bin\Debug\netcoreapp1.0\Messenger.pdb
+F:\Project\NetCore-React\HelloMessenger\Messenger\src\Messenger\obj\Debug\netcoreapp1.0\Messenger.csprojResolveAssemblyReference.cache
+F:\Project\NetCore-React\HelloMessenger\Messenger\src\Messenger\obj\Debug\netcoreapp1.0\Messenger.AssemblyInfo.cs
+F:\Project\NetCore-React\HelloMessenger\Messenger\src\Messenger\obj\Debug\netcoreapp1.0\Messenger.dll
+F:\Project\NetCore-React\HelloMessenger\Messenger\src\Messenger\obj\Debug\netcoreapp1.0\Messenger.pdb

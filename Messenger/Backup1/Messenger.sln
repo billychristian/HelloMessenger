@@ -1,15 +1,18 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 15
-VisualStudioVersion = 15.0.26228.9
+# Visual Studio 14
+VisualStudioVersion = 14.0.25420.1
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{2A103E31-C6CB-4733-8F3E-66BEC2B68723}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{616B814B-B9EB-408E-B117-5224F0CFB4AA}"
+	ProjectSection(SolutionItems) = preProject
+		global.json = global.json
+	EndProjectSection
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Messenger", "src\Messenger\Messenger.csproj", "{246935AA-1FE8-40C7-81F8-E982580C2BFD}"
+Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "Messenger", "src\Messenger\Messenger.xproj", "{246935AA-1FE8-40C7-81F8-E982580C2BFD}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AuthServer", "src\AuthServer\AuthServer.csproj", "{C47A8B70-6F04-4885-AE0C-4E428AB617F4}"
+Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "AuthServer", "src\AuthServer\AuthServer.xproj", "{C47A8B70-6F04-4885-AE0C-4E428AB617F4}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

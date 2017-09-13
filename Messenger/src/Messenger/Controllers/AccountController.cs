@@ -53,8 +53,8 @@ namespace Messenger.Controllers
         }
 
         [Route("ActivateUserByUserCode")]
-        [HttpGet("{activationCode}", Name = "ActivateUserByUserCode")]
-        public IActionResult Get(string activationCode)
+        [HttpPut("{activationCode}", Name = "ActivateUserByUserCode")]
+        public IActionResult Put(string activationCode)
         {
             if (String.IsNullOrEmpty(activationCode)) return BadRequest();
 
@@ -127,14 +127,16 @@ namespace Messenger.Controllers
         {
             try
             {
+                var userCode = Encryption.EncryptString(user.UserName, AppSettings.Key);
                 var message = new MimeMessage();
                 message.From.Add(new MailboxAddress("Admin", "billy.christian@mitrais.com"));
                 message.To.Add(new MailboxAddress(user.FirstName + " " + user.LastName, user.Email));
                 message.Subject = "Hello Messenger - Activation Code";
                 var bodyBuilder = new BodyBuilder();
                 bodyBuilder.HtmlBody = @"Hi "+ user.FirstName + " " + user.LastName + ",<br><br>";
-                bodyBuilder.HtmlBody += @"Thank you for joining us. Please follow this <a href=''>link</a> to activate your account. "; //TODO:add url
-                bodyBuilder.HtmlBody += @"<br><br>code : " + Encryption.EncryptString(user.UserName, AppSettings.Key); // TODO: delete this later
+                bodyBuilder.HtmlBody += @"Thank you for joining us. Please follow this <a href='"+AppSettings.HostAddress+ "activate-account/"+ userCode + "'>link</a> to activate your account.<br><br>";
+                bodyBuilder.HtmlBody += @"Best regards,<br><br>";
+                bodyBuilder.HtmlBody += @"Hello Messenger";
                 message.Body = bodyBuilder.ToMessageBody();
 
                 using (var client = new SmtpClient())
