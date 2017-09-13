@@ -128,6 +128,7 @@ namespace Messenger.Controllers
             try
             {
                 var userCode = Encryption.EncryptString(user.UserName, AppSettings.Key);
+                userCode = Uri.EscapeDataString(userCode);
                 var message = new MimeMessage();
                 message.From.Add(new MailboxAddress("Admin", "billy.christian@mitrais.com"));
                 message.To.Add(new MailboxAddress(user.FirstName + " " + user.LastName, user.Email));
