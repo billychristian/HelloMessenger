@@ -1,5 +1,6 @@
 import C from './constants'
 import request from 'superagent';
+import {hashHistory} from 'react-router'
 
 export function login(id,
                     username,
@@ -74,7 +75,7 @@ export function signin(username, password){
 
 export function getUserInformation(username, authentication){
     return (dispatch) => {
-        request.post(C.CLIENT_URL + "account/GetByUsername/?username="+username)
+        request.get(C.CLIENT_URL + "account/GetByUsername/?username="+username)
         .set('Content-Type', 'application/json')
         .set('Authorization', localStorage["auth-key"])
         .end((err, res) => {
@@ -86,7 +87,8 @@ export function getUserInformation(username, authentication){
                     res.body.lastName, 
                     true,
                     authentication
-                ))
+                ));
+                hashHistory.push('/dashboard');
             }
         })
     }
@@ -113,6 +115,7 @@ export function register(username, firstName, lastName, email, password, confirm
                         res.body.firstName, 
                         res.body.lastName
                     ))
+                    hashHistory.push('/waiting-activation');
                 }
             })
         }
@@ -132,6 +135,7 @@ export function activateAccount(usercode){
                     res.body.firstName, 
                     res.body.lastName
                 ))
+                hashHistory.push('/activation-success');
             }
         })
     }

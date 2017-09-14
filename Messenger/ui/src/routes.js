@@ -17,7 +17,7 @@ const routes = (
     <Router history={hashHistory}>
 		<Route path="/" component= {App}>
             <IndexRoute component={Dashboard} onEnter={requireAuth}/>
-            <Route path="dashboard" component={Dashboard}/>
+            <Route path="dashboard" component={Dashboard} onEnter={requireAuth}/>
             <Route path="login" component={Login}/>
             <Route path="sign-up" component = {SignUp}/>
             <Route path="waiting-activation" component = {WaitingActivation}/>

@@ -1,7 +1,9 @@
 import '../stylesheets/bootstrap.css'
+import Menu from './ui/Menu'
 
 export const App = ({children}) =>
     <div className="app">
+        {localStorage["auth-key"] ? <Menu/> : ""}
         {children}
     </div>
 

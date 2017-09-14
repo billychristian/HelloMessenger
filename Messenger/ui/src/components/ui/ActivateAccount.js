@@ -11,8 +11,6 @@ const ActivateAccount = ({onActivate=u=>u, router, usercode}) => {
            usercode: usercode
         })
 
-        router.push('/activation-success')
-
     }
 
     return(

@@ -3,12 +3,8 @@ import '../../stylesheets/bootstrap.css'
 import { PropTypes } from 'react'
 
 const Dashboard = ({user, router}) => {
-
     return(
-        <div>
-            <h1>Dashboard</h1>
-        </div>
-        
+        null
     )
 }
 

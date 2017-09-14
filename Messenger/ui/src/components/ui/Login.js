@@ -3,7 +3,7 @@ import '../../stylesheets/bootstrap.css'
 import { Link } from 'react-router'
 import { PropTypes } from 'react'
 
-const Login = ({onLogin=u=>u, router}) => {
+const Login = ({onLogin=u=>u}) => {
     let _username, _password
 
     const submit = e => {
@@ -12,9 +12,6 @@ const Login = ({onLogin=u=>u, router}) => {
             username: _username.value,
             password: _password.value
         })
-
-        //console.log(router)
-        router.push('/dashboard')
 
         _username.value = ''
         _password.value = ''
@@ -64,8 +61,7 @@ const Login = ({onLogin=u=>u, router}) => {
 
 
 Login.propTypes = {
-    onLogin: PropTypes.func,
-    router: PropTypes.object
+    onLogin: PropTypes.func
 }
 
 export default Login;

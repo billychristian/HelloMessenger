@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using IdentityServer4.Models;
-using IdentityServer4.Services.InMemory;
 
 namespace AuthServer
 {
@@ -62,26 +61,6 @@ namespace AuthServer
                 }
             };
         }
-
-        public static List<InMemoryUser> GetUsers()
-        {
-            return new List<InMemoryUser>
-            {
-                new InMemoryUser
-                {
-                    Subject = "0001",
-                    Username = "behrooz",
-                    Password = "mypass",
-                    Enabled = true
-                },
-                new InMemoryUser
-                {
-                    Subject = "0002",
-                    Username = "mahnaz",
-                    Password = "anotherpass",
-                    Enabled = true
-                }
-            };
-        }
+        
     }
 }
