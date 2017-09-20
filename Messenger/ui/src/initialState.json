@@ -5,6 +5,7 @@
         "email": "address@email.com",
         "firstName":"first",
         "lastName":"last",
+        "isLoggedIn":false,
         "authentication":{
             "access_token" :"default",
             "expires_in":3600,

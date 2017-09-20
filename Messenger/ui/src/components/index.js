@@ -1,7 +1,14 @@
 import '../stylesheets/bootstrap.css'
+import Menu from './container/Menu'
 
 export const App = ({children}) =>
     <div className="app">
+        {children}
+    </div>
+
+export const Dashboard=({children}) =>
+    <div className="dashboard">
+        <Menu/>
         {children}
     </div>
 

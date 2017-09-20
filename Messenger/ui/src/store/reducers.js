@@ -6,7 +6,10 @@ export const user = (state=null, action) =>{
 			case C.SIGN_IN :
 			case C.SIGN_UP : 
 			case C.ACTIVATE_ACCOUNT :
-			return action.payload
+			case C.SIGN_OUT:
+			case C.FORGOT_PASSWORD:
+			case C.CHANGE_PASSWORD:
+				return action.payload
 			default: 
 				return state
 		}

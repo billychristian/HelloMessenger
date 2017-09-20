@@ -1,30 +1,44 @@
 import React from 'react'
 import { Router, Route, IndexRoute, hashHistory } from 'react-router'
-import {App,Whoops404} from './components'
-import Dashboard from './components/container/Dashboard'
+import {App,Whoops404, Dashboard} from './components'
 import Login from './components/container/Login'
 import SignUp from './components/container/SignUp'
 import WaitingActivation from './components/ui/ActivationRequest'
 import ActivateAccount from './components/container/ActivateAccount'
 import ActivationSuccess from './components/ui/ActivationSuccess'
+import SignOut from './components/container/SignOut'
+import ForgotPasswordRequest from './components/container/ResetPasswordForm'
+import ChangePassword from './components/container/NewPasswordForm'
+import ChangePasswordSuccess from './components/ui/ChangePasswordSuccess'
 
 function requireAuth(nextState,  replace) {
-    if (!localStorage["auth-key"])
+    var user = store.getState().user;
+    if (user == null || !user.isLoggedIn)
         replace('/login')
   }
+
 
 const routes = (
     <Router history={hashHistory}>
 		<Route path="/" component= {App}>
-            <IndexRoute component={Dashboard} onEnter={requireAuth}/>
+            <IndexRoute onEnter={requireAuth}/>
             <Route path="dashboard" component={Dashboard}/>
             <Route path="login" component={Login}/>
             <Route path="sign-up" component = {SignUp}/>
+
             <Route path="waiting-activation" component = {WaitingActivation}/>
             <Route path="activate-account" component = {ActivateAccount}>
                 <Route path=":usercode" component={ActivateAccount}/>
             </Route>
             <Route path="activation-success" component={ActivationSuccess}/>
+
+            <Route path="forgot-password" component={ForgotPasswordRequest}/>
+            <Route path="reset-password" component={ChangePassword}>
+                <Route path=":usercode" component={ChangePassword}/>
+            </Route>
+            <Route path="change-password-success" component={ChangePasswordSuccess}/>
+
+            <Route path="logout" component={SignOut}/>
         </Route>
 		<Route path="*" component={Whoops404}/>
 	</Router>
