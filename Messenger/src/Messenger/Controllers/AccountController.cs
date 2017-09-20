@@ -6,7 +6,6 @@ using Messenger.Models.Context;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Configuration;
 using MimeKit;
 using System;
 using System.Collections.Generic;
@@ -83,6 +82,40 @@ namespace Messenger.Controllers
             return CreatedAtRoute("GetUser", new { id = user.Id }, user);
         }
 
+        [Route("ResetPasswordRequest")]
+        [HttpGet("{email}", Name = "ResetPasswordRequest")]
+        public IActionResult ResetPasswordRequest(string email)
+        {
+            if (String.IsNullOrEmpty(email)) return BadRequest();
+
+            var user = _context.User.Where(x => x.Email == email).FirstOrDefault();
+
+            if (user == null) throw new Exception("User not found");
+
+            SendEmail(ConfigureResetPasswordEmail(user), user);
+
+            return CreatedAtRoute("GetUser", new { id = user.Id }, user);
+        }
+
+        [Route("ResetPassword")]
+        [HttpPut("{userCode, newPassword}", Name = "ResetPassword")]
+        public IActionResult ResetPassword(string userCode, string newPassword)
+        {
+            if (String.IsNullOrEmpty(newPassword)) return BadRequest();
+
+            var user = _context.User.Where(x => x.UserName == Encryption.DecryptString(userCode, AppSettings.Key)).FirstOrDefault();
+
+            if (user == null) throw new Exception("Invalid link");
+            
+            user.Password = _passwordHasher.HashPassword(user, newPassword);
+
+            _context.User.Update(user);
+            _context.SaveChanges();
+
+            return CreatedAtRoute("GetUser", new { id = user.Id }, user);
+        }
+
+
         // POST api/values
         [HttpPost]
         public IActionResult Post([FromBody]User user)
@@ -104,7 +137,7 @@ namespace Messenger.Controllers
             _context.User.Add(user);
             _context.SaveChanges();
             
-            SendEmailActivation(user);
+            SendEmail(ConfigureActivateAccountEmail(user),user);
 
             return CreatedAtRoute("GetUser", new { id = user.Id }, user);
         }
@@ -123,26 +156,12 @@ namespace Messenger.Controllers
 
         #region private method
 
-        private void SendEmailActivation(User user)
+        private void SendEmail(MimeMessage message, User user)
         {
             try
             {
-                var userCode = Encryption.EncryptString(user.UserName, AppSettings.Key);
-                userCode = Uri.EscapeDataString(userCode);
-                var message = new MimeMessage();
-                message.From.Add(new MailboxAddress("Admin", "billy.christian@mitrais.com"));
-                message.To.Add(new MailboxAddress(user.FirstName + " " + user.LastName, user.Email));
-                message.Subject = "Hello Messenger - Activation Code";
-                var bodyBuilder = new BodyBuilder();
-                bodyBuilder.HtmlBody = @"Hi "+ user.FirstName + " " + user.LastName + ",<br><br>";
-                bodyBuilder.HtmlBody += @"Thank you for joining us. Please follow this <a href='"+AppSettings.HostAddress+ "activate-account/"+ userCode + "'>link</a> to activate your account.<br><br>";
-                bodyBuilder.HtmlBody += @"Best regards,<br><br>";
-                bodyBuilder.HtmlBody += @"Hello Messenger";
-                message.Body = bodyBuilder.ToMessageBody();
-
                 using (var client = new SmtpClient())
                 {
-
                     client.Connect("exchange.mitrais.com", 465, false);
                     client.Authenticate(AppSettings.Email, Encryption.DecryptString(AppSettings.EmailPassword, AppSettings.Key));
                     client.Send(message);
@@ -153,6 +172,44 @@ namespace Messenger.Controllers
             {
                 throw ex;
             }
+        }
+
+        private MimeMessage ConfigureActivateAccountEmail(User user)
+        {
+            var userCode = Encryption.EncryptString(user.UserName, AppSettings.Key);
+            userCode = Uri.EscapeDataString(userCode);
+            var message = new MimeMessage();
+            message.From.Add(new MailboxAddress("Admin", "billy.christian@mitrais.com"));
+            message.To.Add(new MailboxAddress(user.FirstName + " " + user.LastName, user.Email));
+            message.Subject = "Hello Messenger - Activation Code";
+            var bodyBuilder = new BodyBuilder();
+            bodyBuilder.HtmlBody = @"Hi " + user.FirstName + " " + user.LastName + ",<br><br>";
+            bodyBuilder.HtmlBody += @"Thank you for joining us. Please follow this <a href='" + AppSettings.HostAddress + "activate-account/" + userCode + "'>link</a> to activate your account.<br><br>";
+            bodyBuilder.HtmlBody += @"Best regards,<br><br>";
+            bodyBuilder.HtmlBody += @"Hello Messenger";
+            message.Body = bodyBuilder.ToMessageBody();
+
+            return message;
+        }
+
+        private MimeMessage ConfigureResetPasswordEmail(User user)
+        {
+            var userCode = Encryption.EncryptString(user.UserName, AppSettings.Key);
+            userCode = Uri.EscapeDataString(userCode);
+            var message = new MimeMessage();
+            message.From.Add(new MailboxAddress("Admin", "billy.christian@mitrais.com"));
+            message.To.Add(new MailboxAddress(user.FirstName + " " + user.LastName, user.Email));
+            message.Subject = "Hello Messenger - Reset Password";
+            var bodyBuilder = new BodyBuilder();
+            bodyBuilder.HtmlBody = @"Hi " + user.FirstName + " " + user.LastName + ",<br><br>";
+            bodyBuilder.HtmlBody += @"Please follow this <a href='" + AppSettings.HostAddress + "activate-account/" + userCode + "'>link</a> to reset your password.<br><br>";
+            bodyBuilder.HtmlBody += @"If the link above is not working, please paste this link to your browser: " + AppSettings.HostAddress + "reset-password/" + userCode + "<br><br>";
+            bodyBuilder.HtmlBody += @"Please don't hesitate to contact us if you have further assistance.<br><br>";
+            bodyBuilder.HtmlBody += @"Best regards,<br><br>";
+            bodyBuilder.HtmlBody += @"Hello Messenger";
+            message.Body = bodyBuilder.ToMessageBody();
+
+            return message;
         }
 
         #endregion

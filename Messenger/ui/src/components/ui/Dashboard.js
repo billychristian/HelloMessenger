@@ -1,17 +1,9 @@
-import '../../stylesheets/style.scss'
 import '../../stylesheets/bootstrap.css'
-import { PropTypes } from 'react'
+import Menu from '../container/Menu'
 
-const Dashboard = ({user, router}) => {
-    return(
-        null
-    )
-}
+export const Dashboard = ({children}) =>
+    <div className="dashboard">
+        <Menu/>
+        {children}
+    </div>
 
-
-Dashboard.propTypes = {
-    user: PropTypes.object,
-    router: PropTypes.object
-}
-
-export default Dashboard;

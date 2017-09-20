@@ -2,12 +2,11 @@ import Menu from '../ui/Menu'
 import {withRouter} from 'react-router'
 import { connect } from 'react-redux'
 
-const mapStateToProps = (state) =>
+const mapStateToProps = state =>
 ({
-    user: state.user
+    firstName: state.user.firstName,
+    lastName: state.user.lastName
 })
 
 
-const Container = connect(mapStateToProps)(Menu)
-
-export default withRouter(Container);
+export default connect(mapStateToProps)(Menu)

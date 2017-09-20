@@ -1,13 +1,14 @@
 import C from './constants'
 import request from 'superagent';
 import {hashHistory} from 'react-router'
+import initialState from './initialState'
 
 export function login(id,
                     username,
                     email,
                     firstName,
                     lastName,
-                    isLoggedin, 
+                    isLoggedIn, 
                     authentication){
     return {
         type: C.SIGN_IN,
@@ -17,7 +18,7 @@ export function login(id,
             email,
             firstName,
             lastName,
-            isLoggedin, 
+            isLoggedIn, 
             authentication
         }
     }
@@ -53,6 +54,32 @@ export function accountActivation(id,
             email,
             firstName,
             lastName
+        }
+    }
+}
+
+export function logout(){
+    return{
+        type: C.SIGN_OUT,
+        payload: initialState
+    }
+}
+
+export function forgotPassword(email){
+    return{
+        type: C.FORGOT_PASSWORD,
+        payload: {
+            email
+        }
+    }
+}
+
+export function changePassword(username, email){
+    return{
+        type:C.CHANGE_PASSWORD,
+        payload : {
+            username,
+            email
         }
     }
 }
@@ -123,7 +150,6 @@ export function register(username, firstName, lastName, email, password, confirm
 }
 
 export function activateAccount(usercode){
-    console.log(encodeURIComponent(usercode))
     return(dispatch)=>{
         request.post(C.CLIENT_URL+"account/ActivateUserByUserCode/?activationCode="+ encodeURIComponent(usercode))
         .set('Content-Type', 'application/x-www-form-urlencoded')
@@ -138,5 +164,33 @@ export function activateAccount(usercode){
                 hashHistory.push('/activation-success');
             }
         })
+    }
+}
+
+export function resetPasswordRequest(email){
+    return(dispatch)=>{
+        request.get(C.CLIENT_URL+"account/ResetPasswordRequest/?email="+email)
+        .set('Content-Type', 'application/x-www-form-urlencoded')
+        .end((err, res) => {
+            if (res.ok) {
+                dispatch(forgotPassword(email))
+                // hashHistory.push('/activation-success');
+            }
+        })
+    }
+}
+
+export function newPassword(userCode, newPassword, confirmPassword){
+    return(dispatch)=>{
+        if(newPassword == confirmPassword){
+            request.put(C.CLIENT_URL+"account/ResetPassword/?userCode="+encodeURIComponent(userCode)+"&newPassword="+newPassword)
+            .set('Content-Type', 'application/x-www-form-urlencoded')
+            .end((err, res) => {
+                if (res.ok) {
+                    dispatch(changePassword(res.username, res.email))
+                    hashHistory.push('/change-password-success');
+                }
+            })
+        }
     }
 }

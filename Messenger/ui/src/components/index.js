@@ -1,9 +1,14 @@
 import '../stylesheets/bootstrap.css'
-import Menu from './ui/Menu'
+import Menu from './container/Menu'
 
 export const App = ({children}) =>
     <div className="app">
-        {localStorage["auth-key"] ? <Menu/> : ""}
+        {children}
+    </div>
+
+export const Dashboard=({children}) =>
+    <div className="dashboard">
+        <Menu/>
         {children}
     </div>
 

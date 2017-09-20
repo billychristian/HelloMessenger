@@ -7,12 +7,12 @@ import AccountIcon from 'react-icons/lib/md/account-box'
 import SignOutIcon from 'react-icons/lib/fa/sign-out'
 import {PropTypes} from 'react'
 
-export const Menu = ({user}) =>
+export const Menu = ({firstName, lastName}) =>
     <div>
         <div className="sidenav">
             <div className='col-sm-12 banner'>
                 <h1>Hello Messenger</h1>
-                <p>Good day {user.FirstName} {user.LastName}!</p>
+                <p style={{color:"white"}}>Good day {firstName} {lastName}!</p>
             </div>
             <ul className="list-group">
                 <li className="list-group-item">
@@ -26,14 +26,14 @@ export const Menu = ({user}) =>
                     <Link to="/history">
                         <ChatIcon/>
                         &nbsp;
-                        Chat History
+                        Chat
                     </Link>
                 </li>
                 <li className="list-group-item">
                     <Link to="/settings">
                         <AccountIcon/>
                         &nbsp;
-                        User Management
+                        My Profile
                     </Link>
                 </li>
                 <li className="list-group-item">
@@ -48,7 +48,8 @@ export const Menu = ({user}) =>
     </div>
 
 Menu.propTypes={
-    user: PropTypes.object
+    firstName : PropTypes.string,
+    lastName : PropTypes.string
 }
     
 
