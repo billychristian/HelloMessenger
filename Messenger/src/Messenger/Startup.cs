@@ -15,6 +15,7 @@ using Messenger.Models;
 using Microsoft.AspNetCore.Diagnostics;
 using Microsoft.AspNetCore.Http;
 using System.Text;
+using Swashbuckle.AspNetCore.Swagger;
 
 namespace Messenger
 {
@@ -53,6 +54,11 @@ namespace Messenger
                     options.UseSqlServer(connectionString)
             );
             services.AddMvc();
+
+            services.AddSwaggerGen(c =>
+            {
+                c.SwaggerDoc("v1", new Info{ Title = "My API", Version = "v1" });
+            });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -87,6 +93,14 @@ namespace Messenger
                         }.ToString(), Encoding.UTF8);
                     }
                 });
+            });
+
+            app.UseSwagger();
+
+            // Enable middleware to serve swagger-ui (HTML, JS, CSS, etc.), specifying the Swagger JSON endpoint.
+            app.UseSwaggerUI(c =>
+            {
+                c.SwaggerEndpoint("/swagger/v1/swagger.json", "My API V1");
             });
 
             app.UseCors("MyPolicy");

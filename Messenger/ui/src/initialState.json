@@ -12,5 +12,6 @@
             "token_type":"Bearer",
             "refresh_token":"default"
         }
-    }
+    },
+    "errors":[]
 }

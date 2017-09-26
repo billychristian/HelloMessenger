@@ -2,6 +2,7 @@ import '../../stylesheets/style.scss'
 import '../../stylesheets/bootstrap.css'
 import { Link } from 'react-router'
 import { PropTypes } from 'react'
+import ShowErrors from '../container/ShowErrors'
 
 const NewPassword = ({onChangePassword=u=>u, usercode}) => {
     let _password, _confirmPassword
@@ -13,9 +14,6 @@ const NewPassword = ({onChangePassword=u=>u, usercode}) => {
             password: _password.value,
             confirmPassword: _confirmPassword.value
         })
-
-        _password.value =''
-        _confirmPassword.value = ''
 
     }
 
@@ -40,6 +38,9 @@ const NewPassword = ({onChangePassword=u=>u, usercode}) => {
                                 ref= {input => _confirmPassword = input} 
                                 required />
                         </div>
+
+                        <ShowErrors/>
+
                         <div className="form-group">
                             <button className="btn btn-info">Submit</button>
                         </div>

@@ -1,7 +1,7 @@
 import ResetPassword from '../ui/ResetPasswordForm'
 import {withRouter} from 'react-router'
 import { connect } from 'react-redux'
-import { resetPasswordRequest } from '../../actions'
+import { resetPasswordRequest } from '../../actions/accountActions'
 
 const mapStateToProps = (state,props) =>
 	({

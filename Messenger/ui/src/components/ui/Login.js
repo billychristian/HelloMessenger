@@ -2,6 +2,7 @@ import '../../stylesheets/style.scss'
 import '../../stylesheets/bootstrap.css'
 import { Link } from 'react-router'
 import { PropTypes } from 'react'
+import ShowErrors from '../container/ShowErrors'
 
 const Login = ({onLogin=u=>u}) => {
     let _username, _password
@@ -13,16 +14,13 @@ const Login = ({onLogin=u=>u}) => {
             password: _password.value
         })
 
-        _username.value = ''
-        _password.value = ''
-
     }
 
     return(
         <div className="vertical-center">
             <div className="col-md-6"></div>
             <div className="col-md-4 form-container">
-               <form onSubmit={submit} className="login-form">
+                <form onSubmit={submit} className="login-form">
                     <div className="form-group">
                         <label htmlFor="username">Username</label>
                         <input id="username" 
@@ -40,6 +38,8 @@ const Login = ({onLogin=u=>u}) => {
                             ref= {input => _password = input} 
                             required />
                     </div>
+
+                    <ShowErrors/>
 
                     <div className="form-group">
                         <button className="btn btn-info">Login</button>

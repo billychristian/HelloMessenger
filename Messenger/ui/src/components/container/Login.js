@@ -1,7 +1,7 @@
 import Login from '../ui/Login'
 import {withRouter} from 'react-router'
 import { connect } from 'react-redux'
-import { signin } from '../../actions'
+import { signin } from '../../actions/accountActions'
 
 const mapStateToProps = (state,props) =>
 	({

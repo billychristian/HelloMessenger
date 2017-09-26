@@ -8,7 +8,6 @@ import SignOutIcon from 'react-icons/lib/fa/sign-out'
 import {PropTypes} from 'react'
 
 export const Menu = ({firstName, lastName}) =>
-    <div>
         <div className="sidenav">
             <div className='col-sm-12 banner'>
                 <h1>Hello Messenger</h1>
@@ -30,7 +29,7 @@ export const Menu = ({firstName, lastName}) =>
                     </Link>
                 </li>
                 <li className="list-group-item">
-                    <Link to="/settings">
+                    <Link to="/dashboard/user">
                         <AccountIcon/>
                         &nbsp;
                         My Profile
@@ -45,7 +44,6 @@ export const Menu = ({firstName, lastName}) =>
                 </li>
             </ul>
         </div>
-    </div>
 
 Menu.propTypes={
     firstName : PropTypes.string,

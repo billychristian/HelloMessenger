@@ -1,7 +1,7 @@
 import SignUp from '../ui/SignUp'
 import {withRouter} from 'react-router'
 import { connect } from 'react-redux'
-import { register } from '../../actions'
+import { register } from '../../actions/accountActions'
 
 const mapStateToProps = (state, props) =>
 ({

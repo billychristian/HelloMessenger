@@ -1,7 +1,7 @@
 import NewPassword from '../ui/NewPasswordForm'
 import {withRouter} from 'react-router'
 import { connect } from 'react-redux'
-import { newPassword } from '../../actions'
+import { newPassword } from '../../actions/accountActions'
 
 const mapStateToProps = (state,props) =>
 	({

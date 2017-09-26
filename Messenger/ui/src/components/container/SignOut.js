@@ -1,7 +1,7 @@
 import SignOut from '../ui/SignOut'
 import {withRouter} from 'react-router'
 import { connect } from 'react-redux'
-import { logout } from '../../actions'
+import { logout } from '../../actions/accountActions'
 
 const mapStateToProps = (state, props) =>
 ({

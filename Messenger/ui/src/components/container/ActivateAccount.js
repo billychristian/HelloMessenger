@@ -1,7 +1,7 @@
 import ActivateAccount from '../ui/ActivateAccount'
 import {withRouter} from 'react-router'
 import { connect } from 'react-redux'
-import { activateAccount } from '../../actions'
+import { activateAccount } from '../../actions/accountActions'
 
 const mapStateToProps = (state,props) =>
 	({

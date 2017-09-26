@@ -2,6 +2,7 @@ import '../../stylesheets/style.scss'
 import '../../stylesheets/bootstrap.css'
 import { Link } from 'react-router'
 import { PropTypes } from 'react'
+import ShowErrors from '../container/ShowErrors'
 
 const SignUp = ({onSubmit=u=>u, router}) => {
     let _firstName, _lastName, _username, _email, _password, _confirmPassword
@@ -16,13 +17,6 @@ const SignUp = ({onSubmit=u=>u, router}) => {
             password: _password.value,
             confirmPassword : _confirmPassword.value
         })
-
-        _firstName.value = ''
-        _lastName.value = ''
-        _username.value = ''
-        _email.value = ''
-        _password.value = ''
-        _confirmPassword.value = ''
 
     }
 
@@ -85,6 +79,8 @@ const SignUp = ({onSubmit=u=>u, router}) => {
                         ref= {input => _confirmPassword = input}
                         required />
                     </div>
+
+                    <ShowErrors/>
 
                     <div className="form-group">
                         <button className="btn btn-info">Sign Up</button>

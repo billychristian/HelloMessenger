@@ -9,7 +9,9 @@ export const App = ({children}) =>
 export const Dashboard=({children}) =>
     <div className="dashboard">
         <Menu/>
-        {children}
+        <div id="main">
+            {children}
+        </div>
     </div>
 
 export const Whoops404 = ({ location }) =>

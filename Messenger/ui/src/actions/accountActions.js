@@ -1,7 +1,8 @@
-import C from './constants'
+import C from '../constants'
 import request from 'superagent';
 import {hashHistory} from 'react-router'
-import initialState from './initialState'
+import initialState from '../initialState'
+import {addError, clearError} from './errorAction'
 
 export function login(id,
                     username,
@@ -84,6 +85,21 @@ export function changePassword(username, email){
     }
 }
 
+export function updateAccount(username,
+                        email,
+                        firstName,
+                        lastName){
+    return{
+            type: C.EDIT_USER,
+            payload : {
+                username,
+                email,
+                firstName,
+                lastName
+            }
+        }
+}
+
 export function signin(username, password){
     return (dispatch) => {
         request.post(C.LOGIN_URL)
@@ -91,10 +107,13 @@ export function signin(username, password){
         .set('Content-Type', 'application/x-www-form-urlencoded')
         .end((err, res) => {
             if (res.ok) {
-                console.log('success', JSON.stringify(res.body));
                 var authentication = res.body;
                 localStorage["auth-key"] = res.body.token_type + " " + res.body.access_token;
                 dispatch(getUserInformation(username, authentication))
+            }
+            else if(err.status == 400){
+                let message = "Invalid username or password"
+                dispatch(addError(message))
             }
         })
     }
@@ -146,6 +165,10 @@ export function register(username, firstName, lastName, email, password, confirm
                 }
             })
         }
+        else{
+            let message = "Password and Confirm Password doesn't match"
+            dispatch(addError(message))
+        }
     }
 }
 
@@ -191,6 +214,42 @@ export function newPassword(userCode, newPassword, confirmPassword){
                     hashHistory.push('/change-password-success');
                 }
             })
+        }
+        else{
+            let message = "Password and Confirm Password doesn't match"
+            dispatch(addError(message))
+        }
+    }
+}
+
+export function editUser(id, username, firstName, lastName, email, password, confirmPassword){
+    return(dispatch) =>{
+        if(password == confirmPassword){
+            request.put(C.CLIENT_URL+"account/edit/"+id)
+            .send({
+                FirstName:firstName,
+                LastName:lastName,
+                Password:password,
+                UserName:username,
+                Email:email
+            })
+            .set('Content-Type', 'application/json')
+            .set('Authorization', localStorage["auth-key"])
+            .end((err, res) => {
+                if (res.ok) {
+                    dispatch(updateAccount(
+                        username,
+                        email,
+                        firstName,
+                        lastName
+                    ))
+                    hashHistory.push('/dashboard/user');
+                }
+            })
+        }
+        else{
+            let message = "Password and Confirm Password doesn't match"
+            dispatch(addError(message))
         }
     }
 }

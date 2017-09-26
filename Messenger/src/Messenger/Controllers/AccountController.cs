@@ -10,6 +10,7 @@ using MimeKit;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using Swashbuckle.AspNetCore.SwaggerGen;
 
 // For more information on enabling Web API for empty projects, visit http://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -28,7 +29,7 @@ namespace Messenger.Controllers
         }
 
         // GET: api/values
-        [HttpGet]
+        [HttpGet("")]
         public IEnumerable<User> Get()
         {
             var users = _context.User;
@@ -43,7 +44,7 @@ namespace Messenger.Controllers
             if (String.IsNullOrEmpty(id.ToString())) throw new Exception("User not found!");
 
             var user = _context.User.Where(x => x.Id == id).FirstOrDefault();
-            if(user == null)
+            if (user == null)
             {
                 throw new Exception("User not found!");
             }
@@ -51,9 +52,36 @@ namespace Messenger.Controllers
             return user;
         }
 
+        // PUT api/values/5
+        [Authorize]
+        [Route("Edit/{id}")]
+        [HttpPut("{id}", Name = "Edit")]
+        public IActionResult Edit(Guid id, [FromBody]User user)
+        {
+            if (user == null)
+            {
+                return BadRequest();
+            }
+
+            var existingUser = _context.User.Where(x => x.Id == id).FirstOrDefault();
+
+            if (existingUser == null) throw new Exception("User not found");
+
+            existingUser.FirstName = user.FirstName;
+            existingUser.LastName = user.LastName;
+            existingUser.Email = user.Email;
+            existingUser.UserName = user.UserName;
+            existingUser.Password = user.Password;
+
+            _context.User.Update(existingUser);
+            _context.SaveChanges();
+
+            return new NoContentResult();
+        }
+
         [Route("ActivateUserByUserCode")]
         [HttpPut("{activationCode}", Name = "ActivateUserByUserCode")]
-        public IActionResult Put(string activationCode)
+        public IActionResult ActivateUserByUserCode(string activationCode)
         {
             if (String.IsNullOrEmpty(activationCode)) return BadRequest();
 
@@ -142,11 +170,7 @@ namespace Messenger.Controllers
             return CreatedAtRoute("GetUser", new { id = user.Id }, user);
         }
 
-        // PUT api/values/5
-        [HttpPut("{id}")]
-        public void Put(int id, [FromBody]string value)
-        {
-        }
+        
 
         // DELETE api/values/5
         [HttpDelete("{id}")]
@@ -202,7 +226,7 @@ namespace Messenger.Controllers
             message.Subject = "Hello Messenger - Reset Password";
             var bodyBuilder = new BodyBuilder();
             bodyBuilder.HtmlBody = @"Hi " + user.FirstName + " " + user.LastName + ",<br><br>";
-            bodyBuilder.HtmlBody += @"Please follow this <a href='" + AppSettings.HostAddress + "activate-account/" + userCode + "'>link</a> to reset your password.<br><br>";
+            bodyBuilder.HtmlBody += @"Please follow this <a href='" + AppSettings.HostAddress + "reset-password/" + userCode + "'>link</a> to reset your password.<br><br>";
             bodyBuilder.HtmlBody += @"If the link above is not working, please paste this link to your browser: " + AppSettings.HostAddress + "reset-password/" + userCode + "<br><br>";
             bodyBuilder.HtmlBody += @"Please don't hesitate to contact us if you have further assistance.<br><br>";
             bodyBuilder.HtmlBody += @"Best regards,<br><br>";
